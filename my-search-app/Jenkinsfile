@@ -41,7 +41,7 @@ pipeline {
 							${scannerHome}/bin/sonar-scanner \
 							-Dsonar.projectKey=ICT3103_Practice \
 							-Dsonar.sources=. \
-							-Dsonar.host.url=http://localhost:9000 \
+							-Dsonar.host.url=http:sonarqube:9000 \
 							-Dsonar.token=sqp_87b6e1c6cd72c208ffd9a166a0b8edd3267c3b46
 							"""
 					}
