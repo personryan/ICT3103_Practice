@@ -1,10 +1,10 @@
 pipeline {
     agent any
 	
-	environment {
+	//environment {
         // Define environment variables if needed
         // HOME = '.'
-    }
+    //}
 	
     stages {
 		stage('Checkout') {
