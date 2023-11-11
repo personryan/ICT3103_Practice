@@ -36,12 +36,25 @@ pipeline {
 				}
 			  }
 		}
+		stage('Code Quality Check via SonarQube') {
+			steps {
+				script {
+					def scannerHome = tool 'SonarQube';
+					withSonarQubeEnv('SonarQube') {
+						sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=OWASP -
+						Dsonar.sources=."
+					}
+				}
+			}
+		}
+}
     }
 
     post {
         always {
             // Clean up workspace after build
             cleanWs()
+			recordIssues enabledForFailure: true, tool: sonarQube()
         }
         success {
             // Actions to perform if the pipeline succeeds
