@@ -7,7 +7,6 @@ pipeline {
     }
 	tools {
         nodejs 'nodejs' // 'nodejs' is the name you've given the NodeJS installation in Jenkins
-		dependencyCheck 'OWASP'
     }
     stages {
 		stage('Install Dependencies') {
@@ -28,12 +27,17 @@ pipeline {
 				}                
             }
         }
-        stage('OWASP Dependency Check') {
-            steps {
-                // Running the OWASP Dependency-Check
-                dependencyCheckPublisher pattern: '**/dependency-check-report.*'
-            }
-        }
+		stage('OWASP Dependency-Check Vulnerabilities') {
+			  steps {
+				dependencyCheck additionalArguments: ''' 
+							-o './'
+							-s './'
+							-f 'ALL' 
+							--prettyPrint''', odcInstallation: 'OWASP'
+				
+				dependencyCheckPublisher pattern: 'dependency-check-report.xml'
+			  }
+		}
     }
 
     post {
