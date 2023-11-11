@@ -29,7 +29,11 @@ pipeline {
         }
 		stage('OWASP Dependency-Check Vulnerabilities') {
 			  steps {
-				ddependencyCheck additionalArguments: '--project "my-search-app" --scan ./**/*.* --out . --format ALL', odcInstallation: 'OWASP'
+				dir('my-search-app') {
+					dependencyCheck additionalArguments: '--format HTML --format XML', odcInstallation: 'OWASP'
+					dependencyCheckPublisher pattern: 'dependency-check-report.xml'
+					echo 'Vulnerabilities checked...'
+				}
 			  }
 		}
     }
@@ -42,8 +46,6 @@ pipeline {
         success {
             // Actions to perform if the pipeline succeeds
             echo 'The pipeline succeeded!'
-			echo 'The dependency report printed!'
-			dependencyCheckPublisher pattern: 'dependency-check-report.xml'
         }
         failure {
             // Actions to perform if the pipeline fails
