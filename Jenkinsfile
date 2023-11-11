@@ -5,7 +5,10 @@ pipeline {
         // Define environment variables if needed
         // HOME = '.'
     //}
-	
+	tools {
+        nodejs 'nodejs' // 'nodejs' is the name you've given the NodeJS installation in Jenkins
+		sonarqube 'sonarqube'
+    }
     stages {
 		stage('Checkout') {
             steps {
