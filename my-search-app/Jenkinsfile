@@ -7,14 +7,9 @@ pipeline {
     }
 	tools {
         nodejs 'nodejs' // 'nodejs' is the name you've given the NodeJS installation in Jenkins
+		dependencyCheck 'OWASP'
     }
     stages {
-		stage('Checkout') {
-            steps {
-                // Checks out the source code from your Git repository
-                checkout scm
-            }
-        }
 		stage('Install Dependencies') {
             steps {
 				dir('my-search-app'){
@@ -23,31 +18,20 @@ pipeline {
 				}                
             }
         }
-        stage('Integration') {
+        stage('Integration & UI testing') {
             steps {
 				dir('my-search-app'){
-				// Run integration tests
-                sh 'echo "Run your integration tests here"'
+				// Run integration tests				
+                sh 'echo "Run your integration & UI tests here"'
                 // For example, if you use npm, you might run `npm test`
 				sh 'npm test'
 				}                
             }
         }
-        stage('Dependency Check') {
+        stage('OWASP Dependency Check') {
             steps {
-				dir('my-search-app'){
-					// Check for outdated or vulnerable dependencies
-					sh 'echo "Check your dependencies here"'
-					// For Node.js projects, you might use `npm audit` or `npm outdated`
-					sh 'npm audit'
-				}                
-            }
-        }
-        stage('UI Testing') {
-            steps {
-                // Run UI tests (this could be Selenium, Cypress, etc.)
-                sh 'echo "Run your UI tests here"'
-                // For example, you might run `npm run ui-test`
+                // Running the OWASP Dependency-Check
+                dependencyCheckPublisher pattern: '**/dependency-check-report.*'
             }
         }
     }
