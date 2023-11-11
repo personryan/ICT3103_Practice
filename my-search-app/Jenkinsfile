@@ -17,24 +17,30 @@ pipeline {
         }
 		stage('Install Dependencies') {
             steps {
-                // Install the project dependencies from package.json
-                sh 'npm install'
+				dir('my-search-app'){
+					// Install the project dependencies from package.json
+					sh 'npm install'
+				}                
             }
         }
         stage('Integration') {
             steps {
-                // Run integration tests
+				dir('my-search-app'){
+				// Run integration tests
                 sh 'echo "Run your integration tests here"'
                 // For example, if you use npm, you might run `npm test`
 				sh 'npm test'
+				}                
             }
         }
         stage('Dependency Check') {
             steps {
-                // Check for outdated or vulnerable dependencies
-                sh 'echo "Check your dependencies here"'
-                // For Node.js projects, you might use `npm audit` or `npm outdated`
-				sh 'npm audit'
+				dir('my-search-app'){
+					// Check for outdated or vulnerable dependencies
+					sh 'echo "Check your dependencies here"'
+					// For Node.js projects, you might use `npm audit` or `npm outdated`
+					sh 'npm audit'
+				}                
             }
         }
         stage('UI Testing') {
