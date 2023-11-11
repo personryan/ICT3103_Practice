@@ -1,13 +1,12 @@
 pipeline {
     agent any
 	
-	//environment {
+	environment {
         // Define environment variables if needed
-        // HOME = '.'
-    //}
+        SONARQUBE_SCANNER_HOME = tool 'sonarqube' // Name of your SonarQube scanner installation
+    }
 	tools {
         nodejs 'nodejs' // 'nodejs' is the name you've given the NodeJS installation in Jenkins
-		sonarqube 'sonarqube'
     }
     stages {
 		stage('Checkout') {
