@@ -39,7 +39,7 @@ pipeline {
 					// Check for outdated or vulnerable dependencies
 					sh 'echo "Check your dependencies here"'
 					// For Node.js projects, you might use `npm audit` or `npm outdated`
-					sh 'npm audit'
+					sh 'npm outdated'
 				}                
             }
         }
