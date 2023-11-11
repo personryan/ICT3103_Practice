@@ -55,7 +55,7 @@ pipeline {
         always {
             // Clean up workspace after build
             cleanWs()
-			//recordIssues enabledForFailure: true, tool: sonarQube()
+			recordIssues enabledForFailure: true, tool: sonarQube()
         }
         success {
             // Actions to perform if the pipeline succeeds
