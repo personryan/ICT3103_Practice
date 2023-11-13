@@ -1,0 +1,15 @@
+version: '3'
+services:
+  app-builder:
+    image: node:14
+    working_dir: /src
+    volumes:
+      - .:/app-builder
+    command: npm install && npm run build
+
+  app-tester:
+    image: node:14
+    working_dir: /src
+    volumes:
+      - .:/app-tester
+    command: npm test

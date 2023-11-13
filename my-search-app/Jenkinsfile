@@ -22,12 +22,15 @@ pipeline {
 				sh 'npm test'
 				}                
             }
-			post {
-                always{
-                    junit testResults: 'junit.xml'
-                }
-            }
         }
+		stage('Run Docker Compose') {
+			steps {
+				script {
+					// Run Docker Compose with both services
+					sh 'docker-compose -f docker-compose-testing.yml up --build'
+				}
+			}
+		}
 		stage('OWASP Dependency-Check Vulnerabilities') {
 			  steps {
 				dir('my-search-app') {
