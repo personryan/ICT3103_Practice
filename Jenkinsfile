@@ -29,7 +29,6 @@ pipeline {
                     // Run Docker Compose commands
                     sh 'docker-compose -f docker-compose.yml up --build'
                     // Other pipeline steps as needed
-                }
             }
         }
 		stage('OWASP Dependency-Check Vulnerabilities') {
