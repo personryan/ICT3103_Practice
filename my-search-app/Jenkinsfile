@@ -22,6 +22,11 @@ pipeline {
 				sh 'npm test'
 				}                
             }
+			post {
+                always{
+                    junit testResults: 'junit.xml'
+                }
+            }
         }
 		stage('OWASP Dependency-Check Vulnerabilities') {
 			  steps {
