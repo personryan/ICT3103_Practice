@@ -1,5 +1,10 @@
 version: '3'
 services:
+ install-docker-compose:
+    image: alpine
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: sh -c "apk add --no-cache docker-compose && docker-compose --version && sleep 99999"
   app-builder:
     image: node:14
     working_dir: /src
