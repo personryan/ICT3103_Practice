@@ -23,14 +23,25 @@ pipeline {
 				}                
             }
         }
-		stage('Run Docker Compose') {
-			steps {
-				script {
-					// Run Docker Compose with both services
-					sh 'docker-compose -f docker-compose-testing.yml up --build'
-				}
-			}
-		}
+		stage('Build and Test with Docker Compose') {
+            steps {
+                script {
+                    def dockerComposePath = tool name: 'Docker-Compose', type: 'Tool'
+					
+                    // Run Docker Compose commands
+                    sh "${dockerComposePath}/docker-compose -f ./docker-compose-testing.yml up --build -d"
+                    // Build the services (including your Node.js app)
+                    sh "${dockerComposePath}/docker-compose -f ./docker-compose-testing.yml build"
+                    
+                    // Start the services
+                    sh "${dockerComposePath}/docker-compose -f ./docker-compose-testing.yml up -d"
+                    
+                    // Run tests (adjust this command according to your setup)
+                    sh "${dockerComposePath}/docker-compose -f ./docker-compose-testing.yml exec app-tester npm test"
+                    // Other pipeline steps as needed
+                }
+            }
+        }
 		stage('OWASP Dependency-Check Vulnerabilities') {
 			  steps {
 				dir('my-search-app') {
