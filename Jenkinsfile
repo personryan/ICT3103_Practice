@@ -25,19 +25,9 @@ pipeline {
         }
 		stage('Build and Test with Docker Compose') {
             steps {
-                script {
-                    def dockerComposePath = tool name: 'Docker-Compose', type: 'Tool'
 					
                     // Run Docker Compose commands
-                    sh "${dockerComposePath}/docker-compose -f ./docker-compose-testing.yml up --build -d"
-                    // Build the services (including your Node.js app)
-                    sh "${dockerComposePath}/docker-compose -f ./docker-compose-testing.yml build"
-                    
-                    // Start the services
-                    sh "${dockerComposePath}/docker-compose -f ./docker-compose-testing.yml up -d"
-                    
-                    // Run tests (adjust this command according to your setup)
-                    sh "${dockerComposePath}/docker-compose -f ./docker-compose-testing.yml exec app-tester npm test"
+                    sh 'docker-compose -f docker-compose.yml up --build'
                     // Other pipeline steps as needed
                 }
             }
