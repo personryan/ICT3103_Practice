@@ -27,7 +27,7 @@ pipeline {
             steps {
 					
                     // Run Docker Compose commands
-                    sh 'docker-compose -f docker-compose.yml up --build'
+                    sh 'docker compose -f docker-compose.yml up --build'
                     // Other pipeline steps as needed
             }
         }
