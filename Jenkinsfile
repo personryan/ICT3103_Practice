@@ -23,14 +23,14 @@ pipeline {
 				}                
             }
         }
-		stage('Build and Test with Docker Compose') {
-            steps {
-					
-                    // Run Docker Compose commands
-                    sh 'docker compose -f docker-compose.yml up --build'
-                    // Other pipeline steps as needed
-            }
-        }
+		//stage('Build and Test with Docker Compose') {
+        //    steps {
+		//			
+        //            // Run Docker Compose commands
+        //            sh 'docker compose -f docker-compose.yml up --build'
+        //            // Other pipeline steps as needed
+        //    }
+        //}
 		stage('OWASP Dependency-Check Vulnerabilities') {
 			  steps {
 				dir('my-search-app') {
